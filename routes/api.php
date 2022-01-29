@@ -33,10 +33,11 @@ Route::prefix('auth')->group(function () {
 });
 
 
-Route::post('/addOrder', 'OrderController@addOrder'); //新增訂單
-Route::post('/getOrderItem', 'OrderController@getOrderItem'); //顯示訂單列表
-Route::post('/getOrderData', 'OrderController@getOrderData'); //顯示編輯訂單資料
+Route::post('/addOrder', 'OrderController@addOrder'); //新增訂單V
+Route::post('/getOrderItem', 'OrderController@getOrderItem'); //顯示訂單列表V
+Route::post('/getOrderData', 'OrderController@getOrderData'); //顯示編輯訂單資料V
 
+Route::get('/getCustomerOpt', 'DataController@getCustomerOpt'); //客戶下拉V
 
 
 

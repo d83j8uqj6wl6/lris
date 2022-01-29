@@ -23,16 +23,16 @@ class OrderController extends Controller
     public function addOrder(Request $request)
     {
         $user = Auth::user();
-
+        
         Order::create([
             'customer'          => $request->customer,
             'order_num'         => $request->order_num,
-            'order_date'        => Carbon::now(),
+            'order_date'        => Carbon::parse($request->order_date)->toDateTimeString(),
             'item_num'          => $request->item_num,
             'item_name'         => $request->item_name,
             'quantity'          => $request->quantity,
-            'pre_delivery_data' => Carbon::now(),
-            'reply_date'        => Carbon::now(),
+            'pre_delivery_data' => Carbon::parse($request->pre_delivery_data)->toDateTimeString(),
+            'reply_date'        => Carbon::parse($request->reply_date)->toDateTimeString(),
             'user_id'           => $user->id
         ]);
         return parent::jsonResponse([
@@ -59,9 +59,9 @@ class OrderController extends Controller
 
     public function getOrderData(Request $request)
     {
-        $data = Order::query()->get();
+        $data = Order::where('order_id',$request->order_id)->get();
         return parent::jsonResponse([
-            $data
+            'data' => $data
         ]);
     }
 }
