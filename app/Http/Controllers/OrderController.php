@@ -64,4 +64,22 @@ class OrderController extends Controller
             'data' => $data
         ]);
     }
+
+    public function saveOrderData(Request $request)
+    {
+        $data = Order::where('order_id',$request->order_id)->first();
+
+        $data->order_num            = $request->order_num; //採購號碼
+        $data->order_date           = Carbon::parse($request->order_date)->toDateTimeString();//單據日期 ,
+        $data->item_num             = $request->item_num;//品號
+        $data->item_name            = $request->item_name;//品名
+        $data->quantity             = $request->quantity;//數量
+        $data->pre_delivery_data    = Carbon::parse($request->pre_delivery_data)->toDateTimeString();//預交日期
+        $data->reply_date           = Carbon::parse($request->reply_date)->toDateTimeString(); //回覆日期
+        $data->save();
+
+        return parent::jsonResponse([
+            'success' =>  'true'
+        ]);
+    }
 }

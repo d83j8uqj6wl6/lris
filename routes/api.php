@@ -38,6 +38,6 @@ Route::post('/getOrderItem', 'OrderController@getOrderItem'); //顯示訂單列�
 Route::post('/getOrderData', 'OrderController@getOrderData'); //顯示編輯訂單資料V
 
 Route::get('/getCustomerOpt', 'DataController@getCustomerOpt'); //客戶下拉V
-
+Route::post('/saveOrderData', 'OrderController@saveOrderData'); //儲存修改的訂單V
 
 
