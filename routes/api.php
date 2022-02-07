@@ -39,5 +39,6 @@ Route::post('/getOrderData', 'OrderController@getOrderData'); //顯示編輯訂�
 
 Route::get('/getCustomerOpt', 'DataController@getCustomerOpt'); //客戶下拉V
 Route::post('/saveOrderData', 'OrderController@saveOrderData'); //儲存修改的訂單V
+Route::post('/delOrderData', 'OrderController@delOrderData'); //刪除訂單V
 
 

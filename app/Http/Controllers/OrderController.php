@@ -82,4 +82,12 @@ class OrderController extends Controller
             'success' =>  'true'
         ]);
     }
+
+    public function delOrderData(Request $request)
+    {
+        $data = Order::where('order_id',$request->order_id)->delete();
+        return parent::jsonResponse([
+            'success' =>  'true'
+        ]);
+    }
 }
