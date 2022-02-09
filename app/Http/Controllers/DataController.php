@@ -12,10 +12,23 @@ class DataController extends Controller
     {
         return parent::jsonResponse([
             'options' =>
-                Arr::prepend(Option::where('option_name','customer')->get([ 'option_id', 'option_value'])->toArray(), [
-                    'value' => null,
-                    'text' => '請選擇',
-                ])
+                Option::where('option_name','customer')->get()
+        ]);
+    }
+    
+    public function getDevelopOpt()
+    {
+        return parent::jsonResponse([
+            'options' =>
+                Option::where('option_name','develop')->get()
+        ]);
+    }
+
+    public function getDevelopStatusOpt()
+    {
+        return parent::jsonResponse([
+            'options' =>
+                Option::where('option_name','develop_status')->get()
         ]);
     }
 }

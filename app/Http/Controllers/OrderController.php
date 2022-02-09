@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\User;
 use App\Model\Order;
+use App\Model\Order_tag;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,7 +43,7 @@ class OrderController extends Controller
 
     public function getOrderItem(Request $request)
     {
-        $storeinfoexport = Order::where('develop_status',0)->select('customer', 'order_num','order_date','item_num','item_name','develop_id','reply_date')->orderBy('reply_date');
+        $storeinfoexport = Order::where('develop_status',0)->select('order_id','customer', 'order_num','order_date','item_num','item_name','develop_id','reply_date')->orderBy('reply_date');
         $perPage = 10;
         $storeList =  $storeinfoexport ->skip($request->input('page') * $perPage);
         $paginate =  $storeList->paginate($perPage)->withPath(null)->toArray();
@@ -76,6 +77,7 @@ class OrderController extends Controller
         $data->quantity             = $request->quantity;//數量
         $data->pre_delivery_data    = Carbon::parse($request->pre_delivery_data)->toDateTimeString();//預交日期
         $data->reply_date           = Carbon::parse($request->reply_date)->toDateTimeString(); //回覆日期
+        // $data->develop_id           = $request->develop_id;//開發模式編號
         $data->save();
 
         return parent::jsonResponse([
@@ -89,5 +91,42 @@ class OrderController extends Controller
         return parent::jsonResponse([
             'success' =>  'true'
         ]);
+    }
+
+    public function setMode(Request $request)
+    {
+        $data = Order::where('order_id',$request->order_id)->first();
+        $data->develop_id = $request->develop_id;
+
+        $order_id = $request->order_id;
+        $develop_id = $request->develop_id;
+
+        $data->save();
+        
+        $dd = $this->add_child_order($order_id,$develop_id);
+        
+
+        return parent::jsonResponse([
+            'success' => true
+        ]);
+    }
+    
+    private function add_child_order($order_id,$develop_id)
+    {
+        if($develop_id == 6){
+            Order_tag::create([
+                'order_id'          => $order_id,//訂單編號
+                'develop_id'        => 4,
+            ]);
+            Order_tag::create([
+                'order_id'          => $order_id,//訂單編號
+                'develop_id'        => 5,
+            ]);
+        }else{
+            Order_tag::create([
+                'order_id'          => $order_id,//訂單編號
+                'develop_id'        => $develop_id,
+            ]);
+        }
     }
 }

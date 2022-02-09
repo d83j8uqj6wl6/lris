@@ -33,12 +33,16 @@ Route::prefix('auth')->group(function () {
 });
 
 
-Route::post('/addOrder', 'OrderController@addOrder'); //新增訂單V
+Route::post('/addorder', 'OrderController@addOrder'); //新增訂單V
 Route::post('/getOrderItem', 'OrderController@getOrderItem'); //顯示訂單列表V
 Route::post('/getOrderData', 'OrderController@getOrderData'); //顯示編輯訂單資料V
 
 Route::get('/getCustomerOpt', 'DataController@getCustomerOpt'); //客戶下拉V
+Route::get('/getDevelopOpt', 'DataController@getDevelopOpt'); //開發模式下拉V
+Route::get('/getDevelopStatusOpt', 'DataController@getDevelopStatusOpt'); //開發狀態下拉V
+
 Route::post('/saveOrderData', 'OrderController@saveOrderData'); //儲存修改的訂單V
 Route::post('/delOrderData', 'OrderController@delOrderData'); //刪除訂單V
+Route::post('/setMode', 'OrderController@setMode'); //設定開發模式V
 
 
