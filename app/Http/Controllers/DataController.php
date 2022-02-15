@@ -31,4 +31,12 @@ class DataController extends Controller
                 Option::where('option_name','develop_status')->get()
         ]);
     }
+
+    public function getMaterialOpt()
+    {
+        return parent::jsonResponse([
+            'options' =>
+                Option::where('option_name','material')->get()
+        ]);
+    }
 }
