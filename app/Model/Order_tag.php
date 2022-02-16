@@ -18,7 +18,7 @@ class Order_tag extends Model
      *
      * @var string
      */
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'tag_id';
 
     /**
      * 可大量指定的屬性。
@@ -28,12 +28,13 @@ class Order_tag extends Model
     protected $fillable = [
         'order_id',
         'develop_id',
-        'schedule',
+        'develop_status',
+        'price',
         'expected',
-        'day',
         'start_time',
         'end_time',
         'estimated_time',
+        'record',
         'created_at',
         'updated_at'
     ];
@@ -50,4 +51,18 @@ class Order_tag extends Model
         'created_at'        => 'datetime',
         'updated_at'        => 'datetime',
     ];
+
+    public function main() {
+        return $this->belongsTo(Order::class, 'order_id');
+    }
+
+
+    /**
+     * 定義一對多資料表關聯性。
+     * 
+     * @return mixed
+     */
+    public function personnel() {
+        return $this->belongsTo(Personnel::class, 'tag_id', 'tag_id');
+    }
 }

@@ -13,18 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-// Route::group(['prefix' => 'auth'],
-//     function ($router) {
-//         Route::post('/login', 'AuthController@login'); //登入
-//         Route::get('/logout', 'AuthController@logout'); //登出
-//         Route::get('/refresh', 'AuthController@refresh'); //更新token
-//         Route::get('/me', 'AuthController@me'); //顯示個人資料
-//     }
-// );
 Route::prefix('auth')->group(function () {
     Route::post('/login', 'AuthController@login'); //登入
     Route::get('/logout', 'AuthController@logout'); //登出
@@ -40,9 +28,14 @@ Route::post('/getOrderData', 'OrderController@getOrderData'); //顯示編輯訂�
 Route::get('/getCustomerOpt', 'DataController@getCustomerOpt'); //客戶下拉V
 Route::get('/getDevelopOpt', 'DataController@getDevelopOpt'); //開發模式下拉V
 Route::get('/getDevelopStatusOpt', 'DataController@getDevelopStatusOpt'); //開發狀態下拉V
+Route::get('/getMaterialOpt', 'DataController@getMaterialOpt'); //材質狀態下拉V
 
 Route::post('/saveOrderData', 'OrderController@saveOrderData'); //儲存修改的訂單V
 Route::post('/delOrderData', 'OrderController@delOrderData'); //刪除訂單V
 Route::post('/setMode', 'OrderController@setMode'); //設定開發模式V
 
 
+Route::post('/getOwnOrderItem', 'OwnOrderController@getOwnOrderItem'); //顯示自家開發訂單列表V
+Route::post('/savepersonnel', 'OwnOrderController@savePersonnel'); //設定自家管理人員輸入V
+Route::post('/setOwnFinish', 'OwnOrderController@setOwnFinish'); //設定自家管理發開完成V
+Route::post('/confirm', 'OwnOrderController@confirm'); //設定自家管理主管確認V

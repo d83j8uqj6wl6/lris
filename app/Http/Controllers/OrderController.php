@@ -43,7 +43,7 @@ class OrderController extends Controller
 
     public function getOrderItem(Request $request)
     {
-        $storeinfoexport = Order::where('develop_status',0)->select('order_id','customer', 'order_num','order_date','item_num','item_name','develop_id','reply_date')->orderBy('reply_date');
+        $storeinfoexport = Order::where('develop_status',7)->select('order_id','customer', 'order_num','order_date','item_num','item_name','develop_id','reply_date')->orderBy('reply_date');
         $perPage = 10;
         $storeList =  $storeinfoexport ->skip($request->input('page') * $perPage);
         $paginate =  $storeList->paginate($perPage)->withPath(null)->toArray();
@@ -97,12 +97,11 @@ class OrderController extends Controller
     {
         $data = Order::where('order_id',$request->order_id)->first();
         $data->develop_id = $request->develop_id;
-
+        $data->save();
+        
         $order_id = $request->order_id;
         $develop_id = $request->develop_id;
 
-        $data->save();
-        
         $dd = $this->add_child_order($order_id,$develop_id);
         
 
@@ -122,6 +121,8 @@ class OrderController extends Controller
                 'order_id'          => $order_id,//訂單編號
                 'develop_id'        => 5,
             ]);
+        }else if($develop_id == 3){
+            return null;
         }else{
             Order_tag::create([
                 'order_id'          => $order_id,//訂單編號
