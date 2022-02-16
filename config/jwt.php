@@ -98,10 +98,10 @@ return [
     | This is not particularly recommended, so make sure you have appropriate
     | systems in place to revoke the token if necessary.
     | Notice: If you set this to null you should remove 'exp' element from 'required_claims' list.
-    |
+    |指定 access_token 有效的時間長度（以分鐘為單位），默認為1小時，您也可以將其設置為空，以產生永不過期的標記
     */
 
-    'ttl' => env('JWT_TTL', 60),
+    'ttl' => env('JWT_TTL', 480),
 
     /*
     |--------------------------------------------------------------------------
@@ -117,7 +117,9 @@ return [
     | Some may want this instead of never expiring tokens for e.g. a mobile app.
     | This is not particularly recommended, so make sure you have appropriate
     | systems in place to revoke the token if necessary.
-    |
+    |指定 access_token 可刷新的時間長度（以分鐘為單位）。默認的時間為 2 週。
+    | 大概意思就是如果用戶有一個 access_token，那麼他可以帶著他的 access_token 
+    | 過來領取新的 access_token，直到 2 週的時間後，他便無法繼續刷新了，需要重新登錄。
     */
 
     'refresh_ttl' => env('JWT_REFRESH_TTL', 20160),
