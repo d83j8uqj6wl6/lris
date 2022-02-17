@@ -34,6 +34,7 @@ class Order_tag extends Model
         'start_time',
         'end_time',
         'estimated_time',
+        'day',
         'record',
         'created_at',
         'updated_at'
