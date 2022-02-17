@@ -39,3 +39,7 @@ Route::post('/getOwnOrderItem', 'OwnOrderController@getOwnOrderItem'); //顯示�
 Route::post('/savepersonnel', 'OwnOrderController@savePersonnel'); //設定自家管理人員輸入V
 Route::post('/setOwnFinish', 'OwnOrderController@setOwnFinish'); //設定自家管理發開完成V
 Route::post('/confirm', 'OwnOrderController@confirm'); //設定自家管理主管確認V
+
+Route::post('/getOutsourceOrderItem', 'OutsourceOrderController@getOutsourceOrderItem'); //顯示委外開發訂單列表V
+Route::post('/saveOutsourcePersonnel', 'OutsourceOrderController@saveOutsourcePersonnel'); //設定委外開發廠商輸入V
+Route::post('/setOutsourceFinish', 'OutsourceOrderController@setOutsourceFinish'); //設定委外開發完成V

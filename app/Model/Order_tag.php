@@ -30,6 +30,7 @@ class Order_tag extends Model
         'develop_id',
         'develop_status',
         'price',
+        'quantity',
         'expected',
         'start_time',
         'end_time',
