@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Model\Order;
 use App\Model\Order_tag;
 use App\Model\Personnel;
 use App\Model\Material;
@@ -90,5 +91,35 @@ class OwnOrderController extends Controller
     public function confirm(Request $request)
     {
         $user = Auth::user();
+        //判斷使用者
+        if($user->lv !== 1){
+            return parent::jsonResponse([
+                'status' =>  'unPermission'
+            ]);
+        }
+        
+        $status = Order_tag::where('tag_id',$request->tag_id)->first();
+        $day = carbon::parse ($status->end_time)->diffInDays($status->estimated_time, false); //逾期日
+        if($day >= 0){ //判斷逾期日
+            $expected = 14;
+        }else{
+            $expected = 15;
+        }
+
+        $status->develop_status = 10;
+        $status->day = $day;
+        $status->expected = $expected;
+        $status->save();
+        
+        $count = Order_tag::where('order_id',$status->order_id)->whereNotIn('develop_status',[10])->count();
+        if($count == 0){
+            $order = Order::where('order_id',$status->order_id)->first();
+            $order->develop_status = 10;
+            $order->save();
+        }
+
+        return parent::jsonResponse([
+            'status' =>  'success'
+        ]);
     }
 }
