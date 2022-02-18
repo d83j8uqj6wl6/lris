@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Auth;
 
 class OutsourceOrderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login']]);
+    }
+
     public function getOutsourceOrderItem(Request $request)
     {
         $data = Order_tag::where('develop_id',5)->whereNotIn('develop_status',[10])->select('tag_id','order_id','develop_status','estimated_time','price')->with(["main" => function($q){

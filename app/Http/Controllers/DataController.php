@@ -39,4 +39,12 @@ class DataController extends Controller
                 Option::where('option_name','material')->get()
         ]);
     }
+
+    public function getExpectedOpt()
+    {
+        return parent::jsonResponse([
+            'options' =>
+                Option::where('option_name','overdue')->get()
+        ]);
+    }
 }

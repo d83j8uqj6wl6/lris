@@ -29,6 +29,7 @@ Route::get('/getCustomerOpt', 'DataController@getCustomerOpt'); //客戶下拉V
 Route::get('/getDevelopOpt', 'DataController@getDevelopOpt'); //開發模式下拉V
 Route::get('/getDevelopStatusOpt', 'DataController@getDevelopStatusOpt'); //開發狀態下拉V
 Route::get('/getMaterialOpt', 'DataController@getMaterialOpt'); //材質狀態下拉V
+Route::get('/getExpectedOpt', 'DataController@getExpectedOpt'); //逾期狀態下拉V
 
 Route::post('/saveOrderData', 'OrderController@saveOrderData'); //儲存修改的訂單V
 Route::post('/delOrderData', 'OrderController@delOrderData'); //刪除訂單V
@@ -43,3 +44,5 @@ Route::post('/confirm', 'OwnOrderController@confirm'); //設定自家管理主�
 Route::post('/getOutsourceOrderItem', 'OutsourceOrderController@getOutsourceOrderItem'); //顯示委外開發訂單列表V
 Route::post('/saveOutsourcePersonnel', 'OutsourceOrderController@saveOutsourcePersonnel'); //設定委外開發廠商輸入V
 Route::post('/setOutsourceFinish', 'OutsourceOrderController@setOutsourceFinish'); //設定委外開發完成V
+
+Route::post('/getCompletedItem', 'CompletedController@getCompletedItem'); //顯示委外開發訂單列表V

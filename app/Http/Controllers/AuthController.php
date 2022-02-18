@@ -29,7 +29,7 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
         if (!$token = Auth::guard()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorize'], 401);
+            return response()->json(['error' => '密碼錯誤'], 401);
         }
         return $this->respondWithToken($token);
     }
