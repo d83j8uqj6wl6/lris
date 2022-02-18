@@ -52,7 +52,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::guard()->logout();
-        return response()->json(['message'=>'Successfully logged out']);
+        return response()->json(['message'=>'成功登出']);
     }
 
     /**

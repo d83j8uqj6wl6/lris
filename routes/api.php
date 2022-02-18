@@ -46,3 +46,4 @@ Route::post('/saveOutsourcePersonnel', 'OutsourceOrderController@saveOutsourcePe
 Route::post('/setOutsourceFinish', 'OutsourceOrderController@setOutsourceFinish'); //設定委外開發完成V
 
 Route::post('/getCompletedItem', 'CompletedController@getCompletedItem'); //顯示委外開發訂單列表V
+Route::post('/password', 'CompletedController@password'); //顯示委外開發訂單列表V

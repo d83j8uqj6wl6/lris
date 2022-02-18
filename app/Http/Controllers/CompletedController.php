@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Model\Order_tag;
 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 use Illuminate\Http\Request;
 
 class CompletedController extends Controller
@@ -26,5 +30,32 @@ class CompletedController extends Controller
         return parent::jsonResponse([
             'lists' => $result
         ]);
+    }
+
+    public function password(Request $request)
+    {
+
+        $messages = [
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ];
+
+        $validator = Validator::make($request->password);
+        return $validator;
+
+
+
+        $validator = Validator::make($request->all(), [
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ])->validate();
+        return [$validator] ;
+        $user = Auth::user();
+
+        $aa = Hash::check($request->password, $user->password);
+        if($aa){
+            return 1;
+        }else{
+            return 2;
+        }
+        return [$aa];
     }
 }
