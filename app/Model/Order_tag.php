@@ -67,4 +67,13 @@ class Order_tag extends Model
     public function personnel() {
         return $this->belongsTo(Personnel::class, 'tag_id', 'tag_id');
     }
+
+    /**
+     * 定義一對多資料表關聯性。
+     * 
+     * @return mixed
+     */
+    public function material() {
+        return $this->belongsTo(Material::class, 'tag_id', 'tag_id');
+    }
 }
