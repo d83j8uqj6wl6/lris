@@ -125,11 +125,30 @@ class OwnOrderController extends Controller
 
     public function demandOwn(Request $request)
     {
-        $storeinfoexport = Order::query(); //檢視表
+        $storeinfoexport = Order_tag::query();
 
-        $datas = $this->query_builder($request,$storeinfoexport)->with(["main" => function($q){
+        $datas = $storeinfoexport->with('main')->whereHas('main',function($q)use($request){
+            if ($order_num = $request->input('order_num')) {//採購號碼
+                $q = $q->where('order_num', $order_num);
+            }
+            if ($item_num = $request->input('item_num')) {//品號
+                $q = $q->where('item_num', $item_num);
+            }
+            if ($item_name = $request->input('item_name')) {//品名
+                $q = $q->where('item_name', $item_name);
+            }
+            if ($order_date = $request->input('order_date')) {//單據日期
+                $q = $q->where('order_date', $order_date);
+            }
+            if ($reply_date = $request->input('reply_date')) {//回覆日
+                $q = $q->where('reply_date', $reply_date);
+            }
+            if ($develop_status = $request->input('develop_status')) {//開發狀態
+                $q = $q->where('develop_status', $develop_status);
+            }
+
             $q->select('order_id','customer','order_num','item_num','item_name','reply_date',);
-        }])->with('personnel');
+        })->with('personnel');
 
         $perPage = 10;
         $storeList =  $datas ->skip($request->input('page') * $perPage);
@@ -142,11 +161,10 @@ class OwnOrderController extends Controller
         }
 
         return parent::jsonResponse([
-            'details' => $result
+            'lists' => $result
         ]);
-
-        return $datas;
     }
+
     private function query_builder(Request $request, $builder)
     {
         
