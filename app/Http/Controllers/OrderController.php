@@ -87,7 +87,18 @@ class OrderController extends Controller
 
     public function delOrderData(Request $request)
     {
-        $data = Order::where('order_id',$request->order_id)->delete();
+        $data = Order::where('order_id',$request->order_id)->first();
+
+        if($data->develop_id == 3){
+            $data->delete();
+            return parent::jsonResponse([
+                'success' =>  'true'
+            ]);
+        }
+
+        Order_tag::where('order_id',$request->order_id)->delete();
+        $data->delete();
+        
         return parent::jsonResponse([
             'success' =>  'true'
         ]);
