@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 
 class CompletedController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login']]);
+    }
+    
     public function getCompletedItem(Request $request)
     {
         $data = Order_tag::where('develop_status',10)->select('tag_id','order_id','develop_id','develop_status','estimated_time','end_time','expected','day')->with(["main" => function($q){
