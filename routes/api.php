@@ -40,7 +40,7 @@ Route::post('/getOwnOrderItem', 'OwnOrderController@getOwnOrderItem'); //顯示�
 Route::post('/savepersonnel', 'OwnOrderController@savePersonnel'); //設定自家管理人員輸入V
 Route::post('/setOwnFinish', 'OwnOrderController@setOwnFinish'); //設定自家管理發開完成V
 Route::post('/confirm', 'OwnOrderController@confirm'); //設定自家管理主管確認V
-Route::post('/demandOwn', 'OwnOrderController@demandOwn'); //自家管理查詢V
+// Route::post('/demandOwn', 'OwnOrderController@demandOwn'); //自家管理查詢V
 
 
 Route::post('/getOutsourceOrderItem', 'OutsourceOrderController@getOutsourceOrderItem'); //顯示委外開發訂單列表V
