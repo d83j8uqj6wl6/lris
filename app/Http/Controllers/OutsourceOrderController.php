@@ -19,25 +19,30 @@ class OutsourceOrderController extends Controller
         $this->middleware('auth:api', ['except' => ['login']]);
     }
 
-    public function getOutsourceOrderItem(Request $request)
-    {
-        $data = Order_tag::where('develop_id',5)->whereNotIn('develop_status',[10])->select('tag_id','order_id','develop_status','estimated_time','price')->with(["main" => function($q){
-            $q->select('order_id','customer','order_num','item_num','item_name','reply_date',);
-        }])->with('personnel');
+    // public function getOutsourceOrderItem1(Request $request)
+    // {
+    //     $data = Order_tag::where('develop_id',5)
+    //     ->whereNotIn('develop_status',[10])
+    //     ->select('tag_id','order_id','develop_status','estimated_time','price')
+    //     ->with(["main" => function($q){
+    //         $q->select(
+    //             'order_id','customer','order_num','item_num','item_name','reply_date'
+    //         );
+    //     }])->with('personnel');
 
-        $perPage = 10;
-        $storeList =  $data ->skip($request->input('page') * $perPage);
-        $paginate =  $storeList->paginate($perPage)->withPath(null)->toArray();
-        $result = [];
-        foreach ($paginate as $key => $item) {
-            if (in_array($key, ['current_page', 'data', 'last_page', 'per_page', 'total'])) {
-                $result[$key] = $item;
-            }
-        }
-        return parent::jsonResponse([
-            'lists' => $result
-        ]);
-    }
+    //     $perPage = 10;
+    //     $storeList =  $data ->skip($request->input('page') * $perPage);
+    //     $paginate =  $storeList->paginate($perPage)->withPath(null)->toArray();
+    //     $result = [];
+    //     foreach ($paginate as $key => $item) {
+    //         if (in_array($key, ['current_page', 'data', 'last_page', 'per_page', 'total'])) {
+    //             $result[$key] = $item;
+    //         }
+    //     }
+    //     return parent::jsonResponse([
+    //         'lists' => $result
+    //     ]);
+    // }
 
     public function saveOutsourcePersonnel(Request $request)
     {
@@ -94,11 +99,32 @@ class OutsourceOrderController extends Controller
         ]);
     }
 
-    public function demandOutsource(Request $request)
+    public function getOutsourceOrderItem(Request $request)
     {
-        $storeinfoexport = Order_tag::query()->where('develop_id',5);
+        if ($develop_status = $request->input('develop_status')) {
 
-        $datas = $storeinfoexport->with('main')->whereHas('main',function($q)use($request){
+            $storeinfoexport = Order_tag::where('develop_id',5)
+            ->where('develop_status', $develop_status)
+            ->select('tag_id','order_id','develop_status','estimated_time','price');    
+        }else{
+            $storeinfoexport = Order_tag::where('develop_id',5)
+            ->whereNotIn('develop_status',[10])
+            ->select('tag_id','order_id','develop_status','estimated_time','price');    
+        }
+
+        $datas = $storeinfoexport->with(["main" => function($q){
+            $q->select(
+                'order_id',
+                'customer',
+                'order_num',
+                'item_num',
+                'item_name',
+                'order_date',
+                'reply_date',
+                'develop_status'
+            );
+        }])
+        ->whereHas('main',function($q)use($request){
             if ($order_num = $request->input('order_num')) {//採購號碼
                 $q = $q->where('order_num', $order_num);
             }
@@ -117,7 +143,6 @@ class OutsourceOrderController extends Controller
             if ($develop_status = $request->input('develop_status')) {//開發狀態
                 $q = $q->where('develop_status', $develop_status);
             }
-            $q->select('order_id','customer','order_num','item_num','item_name','reply_date',);
         })->with('personnel');
 
         $perPage = 10;

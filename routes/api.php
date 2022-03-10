@@ -46,7 +46,7 @@ Route::post('/confirm', 'OwnOrderController@confirm'); //設定自家管理主�
 Route::post('/getOutsourceOrderItem', 'OutsourceOrderController@getOutsourceOrderItem'); //顯示委外開發訂單列表V
 Route::post('/saveOutsourcePersonnel', 'OutsourceOrderController@saveOutsourcePersonnel'); //設定委外開發廠商輸入V
 Route::post('/setOutsourceFinish', 'OutsourceOrderController@setOutsourceFinish'); //設定委外開發完成V
-Route::post('/demandOutsource', 'OutsourceOrderController@demandOutsource'); //自家管理查詢V
+// Route::post('/demandOutsource', 'OutsourceOrderController@demandOutsource'); //自家管理查詢V
 
 Route::post('/getCompletedItem', 'CompletedController@getCompletedItem'); //完成訂單列表V
 Route::post('/password', 'CompletedController@password'); //修改密碼未完成V

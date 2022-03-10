@@ -129,8 +129,7 @@ class OwnOrderController extends Controller
 
     public function getOwnOrderItem(Request $request)
     {
-        if ($develop_status = $request->input('status')) {
-
+        if ($develop_status = $request->input('develop_status')) {
             $storeinfoexport = Order_tag::where('develop_id',4)
             ->whereNotIn('develop_status',[10])
             ->where('develop_status', $develop_status)
@@ -168,9 +167,6 @@ class OwnOrderController extends Controller
             if ($reply_date = $request->input('reply_date')) {//回覆日
                 $q = $q->where('reply_date', $reply_date);
             }
-            // if ($develop_status = $request->input('develop_status')) {//開發狀態
-            //     $q = $q->where('develop_status', $develop_status);
-            // }
         })
         ->with('personnel');
 
