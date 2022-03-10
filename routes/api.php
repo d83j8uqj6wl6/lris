@@ -20,6 +20,8 @@ Route::prefix('auth')->group(function () {
     Route::get('/me', 'AuthController@me'); //顯示個人資料
 });
 
+Route::post('/register', 'RegisterController@register'); //註冊帳號V
+
 
 Route::post('/addorder', 'OrderController@addOrder'); //新增訂單V
 Route::post('/getOrderItem', 'OrderController@getOrderItem'); //顯示訂單列表V

@@ -17,15 +17,75 @@ class CompletedController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['login']]);
     }
-    
+
     public function getCompletedItem(Request $request)
     {
-        $data = Order_tag::where('develop_status',10)->select('tag_id','order_id','develop_id','develop_status','estimated_time','end_time','expected','day')->with(["main" => function($q){
-            $q->select('order_id','customer','order_num','item_num','item_name','reply_date',);
-        }])->with('personnel');
+        if ($develop_id = $request->input('develop_status')) {
+            $storeinfoexport = Order_tag::where('develop_status',10)
+            ->where('develop_id',$develop_id)
+            ->select(
+                'tag_id',
+                'order_id',
+                'develop_id',
+                'develop_status',
+                'estimated_time',
+                'end_time',
+                'expected',
+                'day'
+        );    
+        }else{
+            $storeinfoexport = Order_tag::where('develop_status',10)->select(
+                'tag_id',
+                'order_id',
+                'develop_id',
+                'develop_status',
+                'estimated_time',
+                'end_time',
+                'expected',
+                'day'
+            );
+        }
 
+        if ($expected = $request->input('expected')) {//逾期
+            $storeinfoexport = $storeinfoexport->where('expected', $expected);
+        }
+
+        $storeinfoexport->with(["main" => function($q){
+            $q->select(
+                'order_id',
+                'customer',
+                'order_num',
+                'item_num',
+                'item_name',
+                'reply_date',
+            );
+        }])->whereHas('main',function($q)use($request){
+            if ($order_num = $request->input('order_num')) {//採購號碼
+                $q = $q->where('order_num', $order_num);
+            }
+            if ($item_num = $request->input('item_num')) {//品號
+                $q = $q->where('item_num', $item_num);
+            }
+            if ($item_name = $request->input('item_name')) {//品名
+                $q = $q->where('item_name', $item_name);
+            }
+            if ($order_date = $request->input('order_date')) {//單據日期
+                $q = $q->where('order_date', $order_date);
+            }
+            if ($order_date = $request->input('order_date')) {//預交日期
+                $q = $q->where('order_date', $order_date);
+            }
+            if ($reply_date = $request->input('reply_date')) {//回覆日
+                $q = $q->where('reply_date', $reply_date);
+            }
+        })
+        ->with('personnel')->whereHas('personnel',function($q)use($request){
+            if ($name = $request->input('name')) {//負責人
+                $q = $q->where('name', $name);
+            }
+        });
         $perPage = 10;
-        $storeList =  $data ->skip($request->input('page') * $perPage);
+        $storeList =  $storeinfoexport ->skip($request->input('page') * $perPage);
         $paginate =  $storeList->paginate($perPage)->withPath(null)->toArray();
         $result = [];
         foreach ($paginate as $key => $item) {
