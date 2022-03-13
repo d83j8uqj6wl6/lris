@@ -18,9 +18,11 @@ Route::prefix('auth')->group(function () {
     Route::get('/logout', 'AuthController@logout'); //登出
     Route::get('/refresh', 'AuthController@refresh'); //更新token
     Route::get('/me', 'AuthController@me'); //顯示個人資料
+    Route::post('/register', 'AuthController@register'); //註冊帳號
+    Route::post('/resetpassword', 'AuthController@resetpassword'); //註冊帳號
 });
 
-Route::post('/register', 'RegisterController@register'); //註冊帳號V
+// Route::post('/register', 'RegisterController@register'); //註冊帳號V
 
 
 Route::post('/addorder', 'OrderController@addOrder'); //新增訂單V
