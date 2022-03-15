@@ -64,7 +64,7 @@ class AuthController extends Controller
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->fails()) {
             $error = $validator->errors()->first();
-            return response()->json(['status' => false, 'error' => $error], 400);
+            return response()->json(['status' => false, 'error' => $error], 201);
         }
 
 

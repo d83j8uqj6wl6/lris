@@ -43,7 +43,7 @@ class OrderController extends Controller
 
     public function getOrderItem(Request $request)
     {
-        $storeinfoexport = Order::where('develop_status',7)->select('order_id','customer', 'order_num','order_date','item_num','item_name','develop_id','reply_date')->orderBy('reply_date');
+        $storeinfoexport = Order::where('develop_status',7)->select('order_id','customer', 'order_num','order_date','item_num','item_name','develop_id','reply_date')->orderBy('reply_date','desc');
         $perPage = 10;
         $storeList =  $storeinfoexport ->skip($request->input('page') * $perPage);
         $paginate =  $storeList->paginate($perPage)->withPath(null)->toArray();
