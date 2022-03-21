@@ -60,6 +60,7 @@ class OutsourceOrderController extends Controller
         $data->quantity         = $request->quantity;
         $data->start_time       = Carbon::today();
         $data->develop_status   = 8;
+        $data->surfaceTreatment = $request->surfaceTreatment;
         $data->save();
 
         return parent::jsonResponse([

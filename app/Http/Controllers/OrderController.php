@@ -43,7 +43,16 @@ class OrderController extends Controller
 
     public function getOrderItem(Request $request)
     {
-        $storeinfoexport = Order::where('develop_status',7)->select('order_id','customer', 'order_num','order_date','item_num','item_name','develop_id','reply_date')->orderBy('reply_date','desc');
+        $storeinfoexport = Order::where('develop_status',7)->select(
+            'order_id',
+            'customer',
+            'order_num',
+            'order_date',
+            'item_num',
+            'item_name',
+            'develop_id',
+            'reply_date'
+        )->orderBy('order_date','desc');
         $perPage = 10;
         $storeList =  $storeinfoexport ->skip($request->input('page') * $perPage);
         $paginate =  $storeList->paginate($perPage)->withPath(null)->toArray();
@@ -77,7 +86,6 @@ class OrderController extends Controller
         $data->quantity             = $request->quantity;//數量
         $data->pre_delivery_data    = Carbon::parse($request->pre_delivery_data)->toDateTimeString();//預交日期
         $data->reply_date           = Carbon::parse($request->reply_date)->toDateTimeString(); //回覆日期
-        // $data->develop_id           = $request->develop_id;//開發模式編號
         $data->save();
 
         return parent::jsonResponse([

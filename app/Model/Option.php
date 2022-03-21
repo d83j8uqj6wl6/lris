@@ -69,4 +69,5 @@ class Option extends Model
     public function getTextAttribute()
     {
         return $this->option_value;
-    }}
+    }
+}

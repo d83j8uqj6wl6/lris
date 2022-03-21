@@ -37,6 +37,7 @@ class Order_tag extends Model
         'estimated_time',
         'day',
         'record',
+        'surfaceTreatment',
         'created_at',
         'updated_at'
     ];

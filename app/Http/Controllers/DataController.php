@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Option;
+use App\Model\Company;
 use Illuminate\Support\Arr;
 
 class DataController extends Controller
@@ -45,6 +46,14 @@ class DataController extends Controller
         return parent::jsonResponse([
             'options' =>
                 Option::where('option_name','overdue')->get()
+        ]);
+    }
+
+    public function company()
+    {
+        return parent::jsonResponse([
+            'options' =>
+            Company::get()
         ]);
     }
 }
