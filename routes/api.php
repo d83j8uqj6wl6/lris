@@ -22,35 +22,33 @@ Route::prefix('auth')->group(function () {
     Route::post('/resetpassword', 'AuthController@resetpassword'); //修改密碼
 });
 
-// Route::post('/register', 'RegisterController@register'); //註冊帳號V
+Route::get('/getCustomerOpt'      , 'DataController@getCustomerOpt');       //客戶下拉V
+Route::get('/getDevelopOpt'       , 'DataController@getDevelopOpt');        //開發模式下拉V
+Route::get('/getDevelopStatusOpt' , 'DataController@getDevelopStatusOpt');  //開發狀態下拉V
+Route::get('/getMaterialOpt'      , 'DataController@getMaterialOpt');       //材質狀態下拉V
+Route::get('/getExpectedOpt'      , 'DataController@getExpectedOpt');       //逾期狀態下拉V
+Route::get('/getCompany'          , 'DataController@company');              //廠商下拉V
+
+Route::post('/addorder'           , 'OrderController@addOrder');          //新增訂單 OK
+Route::post('/getOrderItem'       , 'OrderController@getOrderItem');      //顯示訂單列表 OK
+Route::post('/getOrderData'       , 'OrderController@getOrderData');      //顯示編輯訂單資料 OK
+Route::post('/saveOrderData'      , 'OrderController@saveOrderData');     //儲存修改的訂單 OK
+Route::post('/delOrderData'       , 'OrderController@delOrderData');      //刪除訂單  OK
+Route::post('/setMode'            , 'OrderController@setMode');           //設定開發模式 OK
+Route::post('/createMaterial'     , 'OrderController@createMaterial');    //新增材料 OK       
+Route::post('/getMaterial'        , 'OrderController@getMaterial');       //取得材料資訊 OK    
+Route::post('/saveMaterialData'   , 'OrderController@saveMaterialData');  //儲存修改的材料 OK     
 
 
-Route::post('/addorder', 'OrderController@addOrder'); //新增訂單V
-Route::post('/getOrderItem', 'OrderController@getOrderItem'); //顯示訂單列表V
-Route::post('/getOrderData', 'OrderController@getOrderData'); //顯示編輯訂單資料V
-
-Route::get('/getCustomerOpt', 'DataController@getCustomerOpt'); //客戶下拉V
-Route::get('/getDevelopOpt', 'DataController@getDevelopOpt'); //開發模式下拉V
-Route::get('/getDevelopStatusOpt', 'DataController@getDevelopStatusOpt'); //開發狀態下拉V
-Route::get('/getMaterialOpt', 'DataController@getMaterialOpt'); //材質狀態下拉V
-Route::get('/getExpectedOpt', 'DataController@getExpectedOpt'); //逾期狀態下拉V
-Route::get('/company', 'DataController@company'); //廠商下拉V
-
-Route::post('/saveOrderData', 'OrderController@saveOrderData'); //儲存修改的訂單V
-Route::post('/delOrderData', 'OrderController@delOrderData'); //刪除訂單V
-Route::post('/setMode', 'OrderController@setMode'); //設定開發模式V
+Route::post('/getOwnOrderItem'  , 'OwnOrderController@getOwnOrderItem'); //顯示自家開發訂單列表 OK
+Route::post('/savepersonnel'    , 'OwnOrderController@savePersonnel');   //設定自家管理人員輸入 OK
+Route::post('/setOwnFinish'     , 'OwnOrderController@setOwnFinish');    //設定自家管理發開完成 OK
+Route::post('/confirm'          , 'OwnOrderController@confirm');         //設定自家管理主管確認 OK
 
 
-Route::post('/getOwnOrderItem', 'OwnOrderController@getOwnOrderItem'); //顯示自家開發訂單列表V
-Route::post('/savepersonnel', 'OwnOrderController@savePersonnel'); //設定自家管理人員輸入V
-Route::post('/setOwnFinish', 'OwnOrderController@setOwnFinish'); //設定自家管理發開完成V
-Route::post('/confirm', 'OwnOrderController@confirm'); //設定自家管理主管確認V
+Route::post('/getOutsourceOrderItem'    , 'OutsourceOrderController@getOutsourceOrderItem'); //顯示委外開發訂單列表 OK
+Route::post('/saveOutsourcePersonnel'   , 'OutsourceOrderController@saveOutsourcePersonnel'); //設定委外開發廠商輸入 OK
+Route::post('/setOutsourceFinish'       , 'OutsourceOrderController@setOutsourceFinish'); //設定委外開發完成 OK
 
-
-Route::post('/getOutsourceOrderItem', 'OutsourceOrderController@getOutsourceOrderItem'); //顯示委外開發訂單列表V
-Route::post('/saveOutsourcePersonnel', 'OutsourceOrderController@saveOutsourcePersonnel'); //設定委外開發廠商輸入V
-Route::post('/setOutsourceFinish', 'OutsourceOrderController@setOutsourceFinish'); //設定委外開發完成V
-
-Route::post('/getCompletedItem', 'CompletedController@getCompletedItem'); //完成訂單列表V
-Route::post('/password', 'CompletedController@password'); //修改密碼未完成V
-Route::post('/getDetail', 'CompletedController@getDetail'); //完成訂單細項V
+Route::post('/getCompletedItem' , 'CompletedController@getCompletedItem');  //完成訂單列表 OK
+Route::post('/getDetail'        , 'CompletedController@getDetail');         //完成訂單細項V

@@ -98,33 +98,6 @@ class CompletedController extends Controller
         ]);
     }
 
-    // public function password(Request $request)
-    // {
-
-    //     $messages = [
-    //         'password' => ['required', 'string', 'min:6', 'confirmed'],
-    //     ];
-
-    //     $validator = Validator::make($request->password);
-    //     return $validator;
-
-
-
-    //     $validator = Validator::make($request->all(), [
-    //         'password' => ['required', 'string', 'min:6', 'confirmed'],
-    //     ])->validate();
-    //     return [$validator] ;
-    //     $user = Auth::user();
-
-    //     $aa = Hash::check($request->password, $user->password);
-    //     if($aa){
-    //         return 1;
-    //     }else{
-    //         return 2;
-    //     }
-    //     return [$aa];
-    // }
-
     public function getDetail(Request $request)
     {
         // 帶入 develop_id  tag_id 
@@ -137,7 +110,7 @@ class CompletedController extends Controller
         else if($request->develop_id == 4){
             $data = Order_tag::where('tag_id',$request->tag_id)
             ->select('tag_id','order_id','develop_id','start_time','end_time','estimated_time','record')->with(["material" => function($q){
-                $q->select('tag_id','material_id','length','width','high','unit_price','quantity','material');
+                $q->select('order_id','material_id','length','width','high','unit_price','quantity','material');
             }])->with('personnel')->get();
         }
 

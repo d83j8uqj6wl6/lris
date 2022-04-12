@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\User;
 use App\Model\Order;
 use App\Model\Order_tag;
+use App\Model\Material;
+
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -148,5 +149,60 @@ class OrderController extends Controller
                 'develop_id'        => $develop_id,
             ]);
         }
+    }
+
+    public function createMaterial(Request $request)
+    {
+        $user = Auth::user();
+
+        Material::create([
+            'order_id'      => $request->order_id,
+            'material_id'   => $request->material_id,
+            'length'        => $request->length,
+            'width'         => $request->width,
+            'high'          => $request->high,
+            'material'      => $request->material,
+            'unit_price'    => $request->unit_price,
+            'quantity'      => $request->quantity,
+            'user_id'       => $user->id,
+        ]);
+        return parent::jsonResponse([
+            'success' => true
+        ]);
+    }
+
+    public function getMaterial(Request $request)
+    {
+        $data = Material::where('order_id',$request->order_id)->select(
+            'order_id',
+            'material_id',
+            'length',
+            'width',
+            'high',
+            'material',
+            'unit_price',
+            'quantity'
+        )->first();
+        return parent::jsonResponse([
+            'data' => $data
+        ]);
+    }
+
+    public function saveMaterialData(Request $request)
+    {
+        $data = Material::where('order_id',$request->order_id)->first();
+
+        $data->material_id   = $request->material_id; 
+        $data->length        = $request->length;
+        $data->width         = $request->width;
+        $data->high          = $request->high;
+        $data->material      = $request->material;
+        $data->unit_price    = $request->unit_price;
+        $data->quantity      = $request->quantity; 
+        $data->save();
+
+        return parent::jsonResponse([
+            'success' =>  'true'
+        ]);
     }
 }

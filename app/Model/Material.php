@@ -26,7 +26,7 @@ class Material extends Model
      * @var array
      */
     protected $fillable = [
-        'tag_id',
+        'order_id',
         'material_id',
         'length',
         'width',

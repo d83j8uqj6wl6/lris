@@ -47,7 +47,6 @@ class OwnOrderController extends Controller
         Personnel::create([
             'tag_id'        => $request->tag_id,
             'leader'        => $request->leader,
-            'name'          => $request->name,
             'difficulty'    => $request->difficulty ?: null,
         ]);
         $data = Order_tag::where('tag_id',$request->tag_id)->first();
@@ -63,21 +62,9 @@ class OwnOrderController extends Controller
 
     public function setOwnFinish(Request $request)
     {
-        $user = Auth::user();
-
-        Material::create([
-            'tag_id'        => $request->tag_id,
-            'material_id'   => $request->material_id,
-            'length'        => $request->length,
-            'width'         => $request->width,
-            'high'          => $request->high,
-            'material'      => $request->material,
-            'unit_price'    => $request->unit_price,
-            'quantity'      => $request->quantity,
-            'user_id'       => $user->id,
-        ]);
 
         $data = Personnel::where('tag_id',$request->tag_id)->first();
+        $data->name         = $request->name;
         $data->difficulty   = $request->difficulty;
         $data->save();
 

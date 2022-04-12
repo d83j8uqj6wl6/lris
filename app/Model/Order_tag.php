@@ -48,6 +48,7 @@ class Order_tag extends Model
      * @var array
      */
     protected $casts = [
+        'surfaceTreatment'  => 'boolean',
         'start_time'        => 'datetime',
         'end_time'          => 'datetime',
         'estimated_time'    => 'datetime',
@@ -75,6 +76,6 @@ class Order_tag extends Model
      * @return mixed
      */
     public function material() {
-        return $this->belongsTo(Material::class, 'tag_id', 'tag_id');
+        return $this->belongsTo(Material::class, 'order_id', 'order_id');
     }
 }
