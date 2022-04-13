@@ -174,6 +174,7 @@ class OrderController extends Controller
     public function getMaterial(Request $request)
     {
         $data = Material::where('order_id',$request->order_id)->select(
+            'aluminum_id',
             'order_id',
             'material_id',
             'length',
@@ -190,7 +191,7 @@ class OrderController extends Controller
 
     public function saveMaterialData(Request $request)
     {
-        $data = Material::where('order_id',$request->order_id)->first();
+        $data = Material::where('aluminum_id',$request->aluminum_id)->first();
 
         $data->material_id   = $request->material_id; 
         $data->length        = $request->length;
