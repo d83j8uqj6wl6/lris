@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\Option;
 use App\Model\Company;
+use App\Model\User;
 use Illuminate\Support\Arr;
 
 class DataController extends Controller
@@ -49,11 +50,27 @@ class DataController extends Controller
         ]);
     }
 
+    public function getTypeOpt()
+    {
+        return parent::jsonResponse([
+            'options' =>
+                Option::where('option_name','type')->get()
+        ]);
+    }
+    
     public function company()
     {
         return parent::jsonResponse([
             'options' =>
-            Company::get()
+            Company::where('type',18)->get()
+        ]);
+    }
+
+    public function getUserOpt()
+    {
+        return parent::jsonResponse([
+            'options' =>
+            User::select('id','name')->get()
         ]);
     }
 }

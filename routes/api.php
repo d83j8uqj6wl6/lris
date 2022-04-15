@@ -28,6 +28,8 @@ Route::get('/getDevelopStatusOpt' , 'DataController@getDevelopStatusOpt');  //�
 Route::get('/getMaterialOpt'      , 'DataController@getMaterialOpt');       //材質狀態下拉V
 Route::get('/getExpectedOpt'      , 'DataController@getExpectedOpt');       //逾期狀態下拉V
 Route::get('/getCompany'          , 'DataController@company');              //廠商下拉V
+Route::get('/getTypeOpt'          , 'DataController@getTypeOpt');              //型態下拉V
+Route::get('/getUserOpt'          , 'DataController@getUserOpt');              //型態下拉V
 
 Route::post('/addorder'           , 'OrderController@addOrder');          //新增訂單 OK
 Route::post('/getOrderItem'       , 'OrderController@getOrderItem');      //顯示訂單列表 OK
@@ -51,4 +53,10 @@ Route::post('/saveOutsourcePersonnel'   , 'OutsourceOrderController@saveOutsourc
 Route::post('/setOutsourceFinish'       , 'OutsourceOrderController@setOutsourceFinish'); //設定委外開發完成 OK
 
 Route::post('/getCompletedItem' , 'CompletedController@getCompletedItem');  //完成訂單列表 OK
-Route::post('/getDetail'        , 'CompletedController@getDetail');         //完成訂單細項V
+Route::post('/getDetail'        , 'CompletedController@getDetail');         //完成訂單細項OK
+
+Route::post('/getOptList'        , 'OptController@getOptList');         //完成訂單細項
+Route::post('/createType'        , 'OptController@createType');         //完成訂單細項
+Route::post('/getTypeData'        , 'OptController@getTypeData');         //完成訂單細項
+Route::post('/saveTypeData'        , 'OptController@saveTypeData');         //完成訂單細項
+Route::post('/delTypeData'        , 'OptController@delTypeData');         //完成訂單細項

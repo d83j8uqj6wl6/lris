@@ -21,6 +21,13 @@ class Company extends Model
     protected $primaryKey = 'cid';
 
     /**
+     * 轉為陣列時隱藏的欄位。
+     *
+     * @var array
+     */
+    protected $hidden = ['state'];
+
+    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
@@ -33,7 +40,7 @@ class Company extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'name','type','state'
     ];
 
 }
