@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Company extends Model
+class CompanyOpt extends Model
 {
         /**
      * 跟模型相關聯的資料表。
@@ -25,7 +25,7 @@ class Company extends Model
      *
      * @var array
      */
-    protected $hidden = ['state'];
+    protected $hidden = ['cid','name','state','type'];
 
     /**
      * Indicates if the model should be timestamped.
@@ -42,4 +42,31 @@ class Company extends Model
     protected $fillable = [
         'name','type','state'
     ];
-}
+
+    /**
+     * 要附加到模型陣列形式的存取子。
+     *
+     * @var array
+     */
+    protected $appends = ['value', 'text'];
+
+    
+    /**
+     * 取得下拉選單選取值。
+     *
+     * @return string
+     */
+    public function getValueAttribute()
+    {
+        return $this->cid;
+    }
+
+    /**
+     * 取得下拉選單文字。
+     *
+     * @return string
+     */
+    public function getTextAttribute()
+    {
+        return $this->name;
+    }}

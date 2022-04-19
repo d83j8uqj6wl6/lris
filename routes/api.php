@@ -22,14 +22,18 @@ Route::prefix('auth')->group(function () {
     Route::post('/resetpassword', 'AuthController@resetpassword'); //修改密碼
 });
 
-Route::get('/getCustomerOpt'      , 'DataController@getCustomerOpt');       //客戶下拉V
-Route::get('/getDevelopOpt'       , 'DataController@getDevelopOpt');        //開發模式下拉V
+Route::get('/getCustomerFilter'   , 'DataController@getCustomerFilter'); //客戶代碼轉換 OK
+Route::get('/getCustomerOpt'      , 'DataController@getCustomerOpt');    //客戶下拉 OK
+Route::get('/getCompanyOpt'       , 'DataController@getCompanyOpt');     //廠商下拉OK
+Route::get('/getCompanyFilter'    , 'DataController@getCompanyFilter');  //廠商代碼轉換OK
+Route::get('/getMaterialOpt'      , 'DataController@getMaterialOpt');    //材質狀態下拉OK
+Route::get('/getMaterialFilter'   , 'DataController@getMaterialFilter'); //材質狀態代碼轉換OK
+Route::get('/getUserFilter'          , 'DataController@getUserFilter');              //使用者下拉V
+
+Route::get('/getDevelopOpt'       , 'DataController@getDevelopOpt');        //開發模式下拉OK
 Route::get('/getDevelopStatusOpt' , 'DataController@getDevelopStatusOpt');  //開發狀態下拉V
-Route::get('/getMaterialOpt'      , 'DataController@getMaterialOpt');       //材質狀態下拉V
 Route::get('/getExpectedOpt'      , 'DataController@getExpectedOpt');       //逾期狀態下拉V
-Route::get('/getCompany'          , 'DataController@company');              //廠商下拉V
 Route::get('/getTypeOpt'          , 'DataController@getTypeOpt');              //型態下拉V
-Route::get('/getUserOpt'          , 'DataController@getUserOpt');              //型態下拉V
 
 Route::post('/addorder'           , 'OrderController@addOrder');          //新增訂單 OK
 Route::post('/getOrderItem'       , 'OrderController@getOrderItem');      //顯示訂單列表 OK

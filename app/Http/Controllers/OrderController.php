@@ -53,7 +53,7 @@ class OrderController extends Controller
             'item_name',
             'develop_id',
             'reply_date'
-        )->orderBy('order_date','desc');
+        )->orderBy('reply_date','asc');
         $perPage = 10;
         $storeList =  $storeinfoexport ->skip($request->input('page') * $perPage);
         $paginate =  $storeList->paginate($perPage)->withPath(null)->toArray();
