@@ -81,9 +81,9 @@ class CompletedController extends Controller
         })
         ->with('personnel')->whereHas('personnel',function($q)use($request){
             if ($name = $request->input('name')) {//負責人
-                $q = $q->where('name', $name);
+                $q = $q->where('leader', $name);
             }
-        });
+        })->orderBy('reply_date','asc');
         $perPage = 10;
         $storeList =  $storeinfoexport ->skip($request->input('page') * $perPage);
         $paginate =  $storeList->paginate($perPage)->withPath(null)->toArray();

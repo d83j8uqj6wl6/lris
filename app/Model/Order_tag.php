@@ -35,6 +35,7 @@ class Order_tag extends Model
         'start_time',
         'end_time',
         'estimated_time',
+        'reply_date',
         'day',
         'record',
         'surfaceTreatment',
@@ -52,6 +53,7 @@ class Order_tag extends Model
         'start_time'        => 'datetime',
         'end_time'          => 'datetime',
         'estimated_time'    => 'datetime',
+        'reply_date'        => 'datetime',
         'created_at'        => 'datetime',
         'updated_at'        => 'datetime',
     ];

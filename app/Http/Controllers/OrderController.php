@@ -118,11 +118,11 @@ class OrderController extends Controller
         $data = Order::where('order_id',$request->order_id)->first();
         $data->develop_id = $request->develop_id;
         $data->save();
-        
         $order_id = $request->order_id;
         $develop_id = $request->develop_id;
+        $reply_date = $data->reply_date;
 
-        $dd = $this->add_child_order($order_id,$develop_id);
+        $dd = $this->add_child_order($order_id,$develop_id,$reply_date);
         
 
         return parent::jsonResponse([
@@ -130,16 +130,18 @@ class OrderController extends Controller
         ]);
     }
     
-    private function add_child_order($order_id,$develop_id)
+    private function add_child_order($order_id,$develop_id,$reply_date)
     {
         if($develop_id == 6){
             Order_tag::create([
                 'order_id'          => $order_id,//訂單編號
                 'develop_id'        => 4,
+                'reply_date'        => $reply_date,
             ]);
             Order_tag::create([
                 'order_id'          => $order_id,//訂單編號
                 'develop_id'        => 5,
+                'reply_date'        => $reply_date,
             ]);
         }else if($develop_id == 3){
             return null;
@@ -147,6 +149,7 @@ class OrderController extends Controller
             Order_tag::create([
                 'order_id'          => $order_id,//訂單編號
                 'develop_id'        => $develop_id,
+                'reply_date'        => $reply_date,
             ]);
         }
     }

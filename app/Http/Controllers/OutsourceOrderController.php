@@ -144,7 +144,7 @@ class OutsourceOrderController extends Controller
             if ($develop_status = $request->input('develop_status')) {//開發狀態
                 $q = $q->where('develop_status', $develop_status);
             }
-        })->with('personnel');
+        })->with('personnel')->orderBy('reply_date','asc');
 
         $perPage = 10;
         $storeList =  $datas ->skip($request->input('page') * $perPage);

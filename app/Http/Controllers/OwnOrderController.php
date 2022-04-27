@@ -155,7 +155,7 @@ class OwnOrderController extends Controller
                 $q = $q->where('reply_date', $reply_date);
             }
         })
-        ->with('personnel');
+        ->with('personnel')->orderBy('reply_date','asc');
 
         $perPage = 10;
         $storeList =  $datas ->skip($request->input('page') * $perPage);
